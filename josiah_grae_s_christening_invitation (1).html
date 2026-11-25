@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Josiah Grae's Christening — December 6, 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Refined Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sage: {
+                            50: '#f3f7fb',
+                            100: '#e3edf7',
+                            200: '#c6dbef',
+                            300: '#9ec1e2',
+                            400: '#74a2cf',
+                            500: '#5183b6',
+                            600: '#3d6998',
+                            700: '#2f537b',
+                            800: '#264364',
+                            900: '#1d344f',
+                        },
+                        cream: {
+                            50: '#fdfcf9',
+                            100: '#f9f6ef',
+                            200: '#f1eadc',
+                            300: '#e5d9c3',
+                        },
+                        gold: {
+                            300: '#e8cd82',
+                            400: '#d6b35c',
+                            500: '#bf973e',
+                            600: '#9c782d',
+                        },
+                        taupe: {
+                            400: '#c7b299',
+                            600: '#7a6855',
+                        }
+                    },
+                    fontFamily: {
+                        script: ['"Great Vibes"', 'cursive'],
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Soft watercolor blue & warm cream background */
+        body {
+            background-color: #f6f8fb;
+            background-image: 
+                radial-gradient(circle at 15% 12%, rgba(158, 193, 226, 0.28) 0%, transparent 45%),
+                radial-gradient(circle at 85% 20%, rgba(214, 179, 92, 0.14) 0%, transparent 40%),
+                radial-gradient(circle at 20% 85%, rgba(116, 162, 207, 0.24) 0%, transparent 48%),
+                radial-gradient(circle at 88% 88%, rgba(158, 193, 226, 0.24) 0%, transparent 45%);
+            color: #1d344f;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           ENVELOPE & GOLD WAX SEAL OPENING EFFECT
+           ========================================= */
+        #envelope-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 50;
+            background: radial-gradient(circle at center, #f9f6ef 0%, #e3edf7 65%, #c6dbef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.85s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.85s;
+        }
+
+        #envelope-overlay.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .envelope-wrapper {
+            position: relative;
+            width: min(92vw, 460px);
+            height: min(64vw, 310px);
+            perspective: 1400px;
+            cursor: pointer;
+            transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .envelope-wrapper:hover:not(.is-open) {
+            transform: translateY(-4px) scale(1.015);
+        }
+
+        /* Envelope Base Body */
+        .envelope-body {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(145deg, #fdfcf9 0%, #f1f5fa 100%);
+            border-radius: 18px;
+            box-shadow: 
+                0 25px 60px -15px rgba(29, 52, 79, 0.28),
+                0 0 0 1px rgba(116, 162, 207, 0.45);
+            overflow: hidden;
+        }
+
+        /* Inner Letter Peek Card rising out of envelope */
+        .envelope-letter-peek {
+            position: absolute;
+            left: 7%;
+            right: 7%;
+            top: 10%;
+            bottom: 8%;
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #c6dbef;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transform: translateY(0);
+            transition: transform 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.25s;
+            z-index: 2;
+        }
+
+        .envelope-wrapper.is-open .envelope-letter-peek {
+            transform: translateY(-58%);
+        }
+
+        /* Envelope Side & Bottom Pocket Flaps */
+        .envelope-pocket {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .envelope-pocket::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #e8f0f9 50%, #dae6f4 50.5%);
+            clip-path: polygon(0 0, 52% 52%, 0 100%);
+        }
+
+        .envelope-pocket::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(225deg, #e8f0f9 50%, #dae6f4 50.5%);
+            clip-path: polygon(100% 0, 48% 52%, 100% 100%);
+        }
+
+        .envelope-bottom-flap {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            background: linear-gradient(180deg, #f3f7fc 0%, #dfeaf6 100%);
+            clip-path: polygon(0 100%, 50% 48%, 100% 100%);
+            border-top: 1px solid rgba(116, 162, 207, 0.3);
+            pointer-events: none;
+        }
+
+        /* Top 3D Folding Flap */
+        .envelope-top-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 58%;
+            z-index: 5;
+            background: linear-gradient(180deg, #d3e2f2 0%, #e8f0f9 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transform: rotateX(0deg);
+            transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.35s;
+            filter: drop-shadow(0 6px 10px rgba(38, 67, 100, 0.14));
+            pointer-events: none;
+        }
+
+        /* Top 3D Folding Flap */
+        .envelope-top-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 58%;
+            z-index: 5;
+            background: linear-gradient(180deg, #dce7d1 0%, #eef4e7 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            transform-origin: top center;
+            transform: rotateX(0deg);
+            transition: transform 0.75s cubic-bezier(0.4, 0, 0.2, 1), z-index 0s 0.35s;
+            filter: drop-shadow(0 6px 10px rgba(53, 72, 41, 0.14));
+            pointer-events: none;
+        }
+
+        .envelope-wrapper.is-open .envelope-top-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        /* Shimmering Gold Wax Seal */
+        .wax-seal {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1);
+            z-index: 10;
+            width: 86px;
+            height: 86px;
+            border-radius: 9999px;
+            background: radial-gradient(circle at 32% 30%, #f7e6ad 0%, #d6b35c 45%, #a8822e 85%, #8a6820 100%);
+            box-shadow: 
+                0 10px 25px rgba(66, 50, 15, 0.35),
+                inset 0 2px 5px rgba(255, 255, 255, 0.65),
+                inset 0 -3px 6px rgba(92, 68, 18, 0.6),
+                0 0 0 5px rgba(214, 179, 92, 0.28);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+            animation: sealPulse 2.8s ease-in-out infinite;
+        }
+
+        @keyframes sealPulse {
+            0%, 100% { box-shadow: 0 10px 25px rgba(66, 50, 15, 0.35), inset 0 2px 5px rgba(255, 255, 255, 0.65), 0 0 0 4px rgba(214, 179, 92, 0.25); }
+            50% { box-shadow: 0 12px 30px rgba(66, 50, 15, 0.42), inset 0 2px 5px rgba(255, 255, 255, 0.75), 0 0 0 10px rgba(214, 179, 92, 0.14); }
+        }
+
+        .envelope-wrapper.is-open .wax-seal {
+            transform: translate(-50%, -50%) scale(1.25);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Main Invitation Card Entrance Transition */
+        #invitation-container {
+            opacity: 0;
+            transform: translateY(28px) scale(0.98);
+            transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #invitation-container.is-revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* Keepsake Medallion Styling */
+        .keepsake-medallion {
+            background: radial-gradient(circle at 50% 45%, #ffffff 0%, #eff6fd 72%, #d5e6f7 100%);
+            box-shadow: 
+                0 18px 40px -10px rgba(29, 52, 79, 0.2),
+                0 0 0 6px rgba(255, 255, 255, 0.95),
+                0 0 0 9px rgba(116, 162, 207, 0.5),
+                0 0 0 11px rgba(214, 179, 92, 0.35);
+        }
+
+        .ribbon-banner {
+            background: linear-gradient(180deg, #e8f0f9 0%, #d3e2f2 100%);
+            border-top: 1.5px solid #74a2cf;
+            border-bottom: 1.5px solid #74a2cf;
+        }
+
+        @keyframes floatGentle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        .animate-float-gentle {
+            animation: floatGentle 4.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased selection:bg-sage-200 selection:text-sage-900">
+
+    <!-- =========================================================
+         1. FULL-SCREEN ENVELOPE & GOLD WAX SEAL OPENING OVERLAY
+         ========================================================= -->
+    <div id="envelope-overlay" role="dialog" aria-label="Christening Invitation Envelope">
+        <div class="flex flex-col items-center px-4 text-center">
+            <!-- Top Subtle Subtitle -->
+            <p class="text-xs sm:text-sm uppercase tracking-[0.25em] text-sage-700 font-semibold mb-6">
+                You Are Warmly Invited To
+            </p>
+
+            <!-- Interactive 3D Envelope -->
+            <div id="envelope-trigger" class="envelope-wrapper" tabindex="0" role="button" aria-label="Tap to open Josiah Grae's Christening Invitation">
+                <div class="envelope-body">
+                    <!-- Botanical Corner Flourishes on Envelope -->
+                    <svg class="absolute top-2 left-3 w-16 h-16 text-sage-400/50 pointer-events-none z-10" viewBox="0 0 100 100" fill="none">
+                        <path d="M8 8 Q45 25 75 70" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <ellipse cx="28" cy="16" rx="10" ry="4" transform="rotate(-25 28 16)" fill="currentColor"/>
+                        <ellipse cx="18" cy="34" rx="10" ry="4" transform="rotate(45 18 34)" fill="currentColor"/>
+                        <ellipse cx="48" cy="34" rx="10" ry="4" transform="rotate(-15 48 34)" fill="currentColor"/>
+                    </svg>
+                    <svg class="absolute bottom-2 right-3 w-16 h-16 text-sage-400/50 pointer-events-none z-10 rotate-180" viewBox="0 0 100 100" fill="none">
+                        <path d="M8 8 Q45 25 75 70" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        <ellipse cx="28" cy="16" rx="10" ry="4" transform="rotate(-25 28 16)" fill="currentColor"/>
+                        <ellipse cx="18" cy="34" rx="10" ry="4" transform="rotate(45 18 34)" fill="currentColor"/>
+                        <ellipse cx="48" cy="34" rx="10" ry="4" transform="rotate(-15 48 34)" fill="currentColor"/>
+                    </svg>
+
+                    <!-- Inner Card Preview that rises on open -->
+                    <div class="envelope-letter-peek">
+                        <i class="fa-solid fa-cross text-gold-500 text-sm mb-1"></i>
+                        <p class="font-script text-3xl sm:text-4xl text-sage-800 leading-none">Josiah Grae’s</p>
+                        <p class="font-serif text-xs uppercase tracking-[0.22em] text-sage-700 font-bold mt-1">Christening</p>
+                        <p class="text-[11px] text-sage-500 mt-1">December 6, 2026</p>
+                    </div>
+
+                    <!-- Side & Bottom Flaps -->
+                    <div class="envelope-pocket"></div>
+                    <div class="envelope-bottom-flap"></div>
+                </div>
+
+                <!-- Top Folding Flap -->
+                <div class="envelope-top-flap"></div>
+
+                <!-- Center Gold Wax Seal -->
+                <div class="wax-seal">
+                    <div class="w-[70px] h-[70px] rounded-full border border-amber-200/70 flex flex-col items-center justify-center text-cream-50 drop-shadow-sm">
+                        <div class="flex items-center gap-1 text-xs mb-0.5">
+                            <i class="fa-solid fa-cross"></i>
+                            <i class="fa-solid fa-heart text-[9px]"></i>
+                        </div>
+                        <span class="font-script text-2xl leading-none">JG</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Envelope Caption & Tap Prompt -->
+            <div class="mt-7 space-y-1.5">
+                <h1 class="font-script text-4xl sm:text-5xl text-sage-800">Josiah Grae’s Christening</h1>
+                <p class="text-xs sm:text-sm font-semibold text-sage-600 tracking-wider uppercase flex items-center justify-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-gold-500 animate-ping"></span>
+                    <span>Tap the Gold Seal to Open</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         2. STREAMLINED SINGLE-CARD DIGITAL INVITATION
+         ========================================================= -->
+    <main id="invitation-container" class="min-h-screen py-8 sm:py-12 px-4 sm:px-6 flex flex-col items-center justify-center">
+        
+        <!-- Cohesive Vertical Keepsake Card -->
+        <article class="w-full max-w-xl bg-white/95 backdrop-blur-sm rounded-[2rem] border border-sage-200/90 shadow-xl overflow-hidden">
+            
+            <!-- Soft Watercolor Top Header Banner -->
+            <div class="relative pt-8 pb-6 px-5 sm:px-8 text-center bg-gradient-to-b from-sage-100/70 via-cream-50 to-white">
+                <p class="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-sage-700 mb-5">
+                    ✦ Together With Loving Hearts ✦
+                </p>
+
+                <!-- Circular Keepsake Medallion Featuring the Uploaded Photo -->
+                <div class="relative mx-auto w-full max-w-[330px] sm:max-w-[375px] aspect-square rounded-full keepsake-medallion p-1.5 flex items-center justify-center overflow-hidden border-2 border-sage-400/70">
+                    <img 
+                        src="7d025b0c-e821-4469-a745-5ed8cfc71b07.jpeg" 
+                        alt="Josiah Grae's Christening Keepsake — December 6, 2026" 
+                        class="w-full h-full object-cover rounded-full"
+                        onerror="this.style.display='none'; document.getElementById('medallion-fallback').classList.remove('hidden');"
+                    />
+
+                    <!-- Graceful Fallback Only If Image Fails to Load -->
+                    <div id="medallion-fallback" class="hidden w-full h-full rounded-full bg-gradient-to-b from-sage-100 to-white flex flex-col items-center justify-center p-6 text-center">
+                        <i class="fa-solid fa-dove text-3xl text-sage-500 mb-2"></i>
+                        <h2 class="font-script text-4xl text-sage-800 leading-none">Josiah Grae’s</h2>
+                        <p class="font-serif font-bold text-xs tracking-[0.2em] text-sage-900 uppercase mt-2">Christening</p>
+                        <p class="font-serif font-bold text-xs tracking-widest text-sage-700 mt-1">DECEMBER 6, 2026</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Body Sections (Clean, Single-Column Flow) -->
+            <div class="px-6 sm:px-10 pb-10 space-y-8 text-center">
+
+                <!-- 2. DATE, WELCOME MESSAGE, COUNTDOWN & SCRIPTURE -->
+                <section class="space-y-4">
+                    <div>
+                        <p class="font-serif text-2xl sm:text-3xl font-bold text-sage-900">
+                            Sunday, December 06, 2026
+                        </p>
+                        <p class="text-xs sm:text-sm text-sage-700 mt-2 max-w-md mx-auto leading-relaxed">
+                            With hearts full of gratitude and joy, we warmly welcome our beloved family, friends, Ninongs, and Ninangs to witness the Holy Baptism of <strong class="text-sage-900">Josiah Grae</strong> and celebrate this blessed milestone with us afterward.
+                        </p>
+                    </div>
+
+                    <!-- Compact Live Countdown Pill -->
+                    <div class="inline-flex items-center justify-center gap-3 sm:gap-5 px-5 py-2.5 rounded-2xl bg-sage-50 border border-sage-200/90 text-sage-800">
+                        <div>
+                            <span id="cd-days" class="font-serif text-xl sm:text-2xl font-bold block leading-none">00</span>
+                            <span class="text-[10px] uppercase tracking-wider text-sage-600 font-semibold">Days</span>
+                        </div>
+                        <span class="text-sage-300 font-light">|</span>
+                        <div>
+                            <span id="cd-hours" class="font-serif text-xl sm:text-2xl font-bold block leading-none">00</span>
+                            <span class="text-[10px] uppercase tracking-wider text-sage-600 font-semibold">Hrs</span>
+                        </div>
+                        <span class="text-sage-300 font-light">|</span>
+                        <div>
+                            <span id="cd-mins" class="font-serif text-xl sm:text-2xl font-bold block leading-none">00</span>
+                            <span class="text-[10px] uppercase tracking-wider text-sage-600 font-semibold">Mins</span>
+                        </div>
+                        <span class="text-sage-300 font-light">|</span>
+                        <div>
+                            <span id="cd-secs" class="font-serif text-xl sm:text-2xl font-bold text-gold-600 block leading-none">00</span>
+                            <span class="text-[10px] uppercase tracking-wider text-sage-600 font-semibold">Secs</span>
+                        </div>
+                    </div>
+
+                    <!-- Jeremiah 29:11 Scripture Box -->
+                    <div class="bg-cream-100/80 rounded-2xl p-5 sm:p-6 border border-sage-200/80">
+                        <blockquote class="font-serif italic text-lg sm:text-xl text-sage-900 leading-relaxed">
+                            “For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.”
+                        </blockquote>
+                        <span class="inline-block mt-2.5 px-3.5 py-0.5 rounded-full bg-sage-200/80 text-sage-900 font-serif font-bold text-xs sm:text-sm">
+                            Jeremiah 29:11
+                        </span>
+                    </div>
+                </section>
+
+                <!-- Delicate Botanical Divider -->
+                <div class="flex items-center justify-center gap-3 text-sage-400">
+                    <span class="h-[1px] w-16 bg-sage-200"></span>
+                    <i class="fa-solid fa-leaf text-xs"></i>
+                    <span class="h-[1px] w-16 bg-sage-200"></span>
+                </div>
+
+                <!-- 3. EVENT DETAILS, VENUES & DIRECTIONS -->
+                <section class="space-y-4">
+                    <h3 class="font-script text-3xl sm:text-4xl text-sage-800">Celebration Details</h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
+                        <!-- The Christening Block -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-sage-50/80 border border-sage-200/80 flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="flex items-center gap-2 text-sage-700 font-bold text-xs uppercase tracking-wider mb-1">
+                                    <i class="fa-solid fa-church text-gold-600"></i>
+                                    <span>The Christening</span>
+                                </div>
+                                <p class="font-serif text-xl font-bold text-sage-900">Our Lady of Fatima Parish</p>
+                                <p class="text-xs text-sage-600 mt-0.5">Tagum City, Davao del Norte</p>
+                            </div>
+                            <a 
+                                href="https://www.google.com/maps/search/?api=1&query=Our+Lady+of+Fatima+Parish+Tagum+City" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-sage-100 text-sage-800 border border-sage-300 text-xs font-semibold shadow-sm transition w-full"
+                            >
+                                <i class="fa-solid fa-map-location-dot text-gold-600"></i>
+                                <span>Parish Directions</span>
+                            </a>
+                        </div>
+
+                        <!-- The Celebration Block -->
+                        <div class="p-4 sm:p-5 rounded-2xl bg-sage-50/80 border border-sage-200/80 flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="flex items-center gap-2 text-sage-700 font-bold text-xs uppercase tracking-wider mb-1">
+                                    <i class="fa-solid fa-utensils text-gold-600"></i>
+                                    <span>The Celebration</span>
+                                </div>
+                                <p class="font-serif text-xl font-bold text-sage-900">LYR Agro Inland Resort</p>
+                                <p class="text-xs text-sage-600 mt-0.5">Tagum City, Davao del Norte</p>
+                            </div>
+                            <a 
+                                href="https://www.google.com/maps/search/?api=1&query=LYR+Agro+Inland+Resort+Tagum+City" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                class="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-full bg-sage-700 hover:bg-sage-800 text-cream-50 text-xs font-semibold shadow-sm transition w-full"
+                            >
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>Resort Directions</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Reception Perks & Swimming Pool Note -->
+                    <div class="rounded-2xl bg-gradient-to-br from-sage-50 via-white to-cream-100/80 border border-sage-200/90 p-4 sm:p-5 text-left space-y-3">
+                        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold">
+                                <i class="fa-solid fa-champagne-glasses text-gold-600"></i>
+                                <span>Buffet Reception</span>
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sage-100 text-sage-800 text-xs font-semibold">
+                                <i class="fa-solid fa-water-ladder text-sage-600"></i>
+                                <span>Free Swimming Pool Access</span>
+                            </span>
+                        </div>
+                        <p class="text-xs sm:text-sm text-sage-700 leading-relaxed flex items-start gap-2.5">
+                            <i class="fa-solid fa-person-swimming text-sage-600 mt-0.5 shrink-0"></i>
+                            <span>
+                                <strong>Poolside Fun:</strong> Enjoy complimentary swimming pool access! Guests are warmly welcome to take a refreshing swim right after the reception—don’t forget to bring your swimwear!
+                            </span>
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Delicate Botanical Divider -->
+                <div class="flex items-center justify-center gap-3 text-sage-400">
+                    <span class="h-[1px] w-16 bg-sage-200"></span>
+                    <i class="fa-solid fa-dove text-xs"></i>
+                    <span class="h-[1px] w-16 bg-sage-200"></span>
+                </div>
+
+                <!-- 4. SHADES OF BLUE & COMPLEMENTARY COLORS DRESS CODE -->
+                <section class="space-y-3">
+                    <h3 class="font-script text-3xl sm:text-4xl text-sage-800">Attire Palette</h3>
+                    <p class="text-xs sm:text-sm text-sage-600">
+                        Shades of Blue and its complementary warm neutral tones
+                    </p>
+
+                    <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 pt-1">
+                        <div class="flex flex-col items-center gap-1.5">
+                            <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#1d344f] ring-4 ring-sage-100 shadow-inner"></span>
+                            <span class="text-[11px] font-semibold text-sage-700">Navy Blue</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                            <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#5183b6] ring-4 ring-sage-100 shadow-inner"></span>
+                            <span class="text-[11px] font-semibold text-sage-700">Dusty Blue</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                            <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#a8cbe8] ring-4 ring-sage-50 shadow-inner"></span>
+                            <span class="text-[11px] font-semibold text-sage-700">Sky Blue</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                            <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#fdfcf9] border border-cream-300 ring-4 ring-cream-100 shadow-inner"></span>
+                            <span class="text-[11px] font-semibold text-sage-700">White / Cream</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-1.5">
+                            <span class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#d6b35c] ring-4 ring-amber-50 shadow-inner"></span>
+                            <span class="text-[11px] font-semibold text-sage-700">Warm Gold</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Delicate Botanical Divider -->
+                <div class="flex items-center justify-center gap-3 text-sage-400">
+                    <span class="h-[1px] w-16 bg-sage-200"></span>
+                    <i class="fa-regular fa-heart text-xs"></i>
+                    <span class="h-[1px] w-16 bg-sage-200"></span>
+                </div>
+
+                <!-- 5. GOOGLE FORM RSVP CARD -->
+                <section id="rsvp-section" class="text-center bg-sage-50/70 rounded-2xl p-6 sm:p-8 border border-sage-200/90 space-y-4">
+                    <div class="w-11 h-11 mx-auto rounded-full bg-white border border-sage-200 flex items-center justify-center text-gold-600 shadow-sm">
+                        <i class="fa-solid fa-envelope-open-text text-base"></i>
+                    </div>
+
+                    <div>
+                        <h3 class="font-script text-3xl sm:text-4xl text-sage-800">Kindly RSVP</h3>
+                        <p class="text-xs sm:text-sm text-sage-600 mt-1 max-w-md mx-auto leading-relaxed">
+                            Please confirm your attendance and leave a warm prayer or wish for Baby Josiah Grae through our official Google Form.
+                        </p>
+                    </div>
+
+                    <!-- Primary Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-1">
+                        <a 
+                            id="google-form-btn"
+                            href="https://docs.google.com/forms/d/e/1FAIpQLSftdyRXHVVqLiU44hEniH-NH2E7ZOpoV4uDWqyUCHX46a-Y5g/viewform?usp=publish-editor" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-sage-700 hover:bg-sage-800 text-cream-50 font-semibold text-sm shadow-md hover:shadow-lg transition"
+                        >
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                            <span>RSVP via Google Form</span>
+                        </a>
+
+                        <button 
+                            id="toggle-embed-btn"
+                            type="button"
+                            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full bg-white hover:bg-cream-50 text-sage-700 border border-sage-300 font-semibold text-xs sm:text-sm shadow-sm transition"
+                        >
+                            <i class="fa-regular fa-window-maximize text-gold-600"></i>
+                            <span id="toggle-embed-label">Fill Out Form Here</span>
+                        </button>
+                    </div>
+
+                    <!-- Optional Embedded Google Form Container -->
+                    <div id="google-form-embed-wrap" class="hidden pt-2">
+                        <div class="rounded-2xl overflow-hidden border border-sage-200 bg-white shadow-inner">
+                            <iframe 
+                                id="google-form-iframe"
+                                src="" 
+                                title="Josiah Grae Christening RSVP Form"
+                                class="w-full h-[540px] border-0"
+                                loading="lazy"
+                            >Loading Google Form…</iframe>
+                        </div>
+                        <p class="text-[11px] text-sage-500 mt-2">
+                            Having trouble viewing the embedded form? Use the <strong>RSVP via Google Form</strong> button above to open it in a new tab.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+        </article>
+
+        <!-- Minimal Footer with Subtle Replay Opening Button -->
+        <footer class="mt-8 text-center space-y-3">
+            <p class="font-serif text-xs sm:text-sm text-sage-600">
+                Josiah Grae’s Christening • December 06, 2026 • Our Lady of Fatima Parish &amp; LYR Agro Inland Resort
+            </p>
+            <button 
+                id="replay-opening-btn" 
+                type="button"
+                class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/80 hover:bg-white text-sage-600 hover:text-sage-800 border border-sage-200/90 text-[11px] font-semibold shadow-sm transition"
+            >
+                <i class="fa-solid fa-envelope-open text-gold-600"></i>
+                <span>Replay Opening</span>
+            </button>
+        </footer>
+
+    </main>
+
+    <!-- INTERACTIVE JAVASCRIPT -->
+    <script>
+        const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSftdyRXHVVqLiU44hEniH-NH2E7ZOpoV4uDWqyUCHX46a-Y5g/viewform?usp=publish-editor";
+        const GOOGLE_FORM_EMBED_URL = "https://docs.google.com/forms/d/e/1FAIpQLSftdyRXHVVqLiU44hEniH-NH2E7ZOpoV4uDWqyUCHX46a-Y5g/viewform?embedded=true";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Envelope & Gold Wax Seal Opening Sequence
+            const overlay = document.getElementById('envelope-overlay');
+            const envelopeTrigger = document.getElementById('envelope-trigger');
+            const invitationContainer = document.getElementById('invitation-container');
+            const replayBtn = document.getElementById('replay-opening-btn');
+            let isOpening = false;
+
+            function openEnvelope() {
+                if (isOpening) return;
+                isOpening = true;
+
+                // Trigger wax seal pop, 3D flap fold, and inner card rise
+                envelopeTrigger.classList.add('is-open');
+
+                // Dissolve envelope overlay & reveal the invitation smoothly
+                setTimeout(() => {
+                    overlay.classList.add('is-hidden');
+                    invitationContainer.classList.add('is-revealed');
+                    isOpening = false;
+                }, 950);
+            }
+
+            function replayEnvelope() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                invitationContainer.classList.remove('is-revealed');
+                envelopeTrigger.classList.remove('is-open');
+                overlay.classList.remove('is-hidden');
+            }
+
+            envelopeTrigger.addEventListener('click', openEnvelope);
+            envelopeTrigger.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    openEnvelope();
+                }
+            });
+            replayBtn.addEventListener('click', replayEnvelope);
+
+            // 2. Live Countdown Timer to December 6, 2026 (10:00 AM PHT)
+            const targetDate = new Date('2026-12-06T10:00:00+08:00').getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const diff = targetDate - now;
+
+                if (diff <= 0) {
+                    ['cd-days', 'cd-hours', 'cd-mins', 'cd-secs'].forEach(id => {
+                        document.getElementById(id).textContent = '00';
+                    });
+                    return;
+                }
+
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+
+                document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+                document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('cd-mins').textContent = String(mins).padStart(2, '0');
+                document.getElementById('cd-secs').textContent = String(secs).padStart(2, '0');
+            }
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+
+            // 3. Google Form RSVP Integration (Direct Button & Embedded View)
+            const googleFormBtn = document.getElementById('google-form-btn');
+            const toggleEmbedBtn = document.getElementById('toggle-embed-btn');
+            const toggleEmbedLabel = document.getElementById('toggle-embed-label');
+            const embedWrap = document.getElementById('google-form-embed-wrap');
+            const embedIframe = document.getElementById('google-form-iframe');
+
+            googleFormBtn.href = GOOGLE_FORM_URL;
+
+            toggleEmbedBtn.addEventListener('click', () => {
+                const isHidden = embedWrap.classList.contains('hidden');
+                if (isHidden) {
+                    if (!embedIframe.src || embedIframe.src === window.location.href) {
+                        embedIframe.src = GOOGLE_FORM_EMBED_URL;
+                    }
+                    embedWrap.classList.remove('hidden');
+                    toggleEmbedLabel.textContent = 'Hide Embedded Form';
+                } else {
+                    embedWrap.classList.add('hidden');
+                    toggleEmbedLabel.textContent = 'Fill Out Form Here';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
